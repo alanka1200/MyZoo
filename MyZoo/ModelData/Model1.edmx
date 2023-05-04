@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ZooparkModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Animal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" />
+          <Property Name="Habitat" Type="nvarchar" MaxLength="50" />
+          <Property Name="Nutrition" Type="nvarchar" MaxLength="50" />
+          <Property Name="LifeTimeY" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDelete" Type="bit" />
+        </EntityType>
+        <EntityType Name="ListAnimal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AnimalId" Type="int" />
+          <Property Name="ZooId" Type="int" />
+          <Property Name="Count" Type="int" />
+        </EntityType>
+        <EntityType Name="ZooCompany">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhoneNumber" Type="int" />
+          <Property Name="Direcror" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_ListAnimal_Animal">
+          <End Role="Animal" Type="Self.Animal" Multiplicity="0..1" />
+          <End Role="ListAnimal" Type="Self.ListAnimal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Animal">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ListAnimal">
+              <PropertyRef Name="AnimalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ListAnimal_ZooCompany">
+          <End Role="ZooCompany" Type="Self.ZooCompany" Multiplicity="0..1" />
+          <End Role="ListAnimal" Type="Self.ListAnimal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ZooCompany">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ListAnimal">
+              <PropertyRef Name="ZooId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ZooparkModelStoreContainer">
+          <EntitySet Name="Animal" EntityType="Self.Animal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ListAnimal" EntityType="Self.ListAnimal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ZooCompany" EntityType="Self.ZooCompany" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ListAnimal_Animal" Association="Self.FK_ListAnimal_Animal">
+            <End Role="Animal" EntitySet="Animal" />
+            <End Role="ListAnimal" EntitySet="ListAnimal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ListAnimal_ZooCompany" Association="Self.FK_ListAnimal_ZooCompany">
+            <End Role="ZooCompany" EntitySet="ZooCompany" />
+            <End Role="ListAnimal" EntitySet="ListAnimal" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ZooparkModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ZooparkEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Animal" EntityType="ZooparkModel.Animal" />
+          <EntitySet Name="ListAnimal" EntityType="ZooparkModel.ListAnimal" />
+          <EntitySet Name="ZooCompany" EntityType="ZooparkModel.ZooCompany" />
+          <AssociationSet Name="FK_ListAnimal_Animal" Association="ZooparkModel.FK_ListAnimal_Animal">
+            <End Role="Animal" EntitySet="Animal" />
+            <End Role="ListAnimal" EntitySet="ListAnimal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ListAnimal_ZooCompany" Association="ZooparkModel.FK_ListAnimal_ZooCompany">
+            <End Role="ZooCompany" EntitySet="ZooCompany" />
+            <End Role="ListAnimal" EntitySet="ListAnimal" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Animal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Habitat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Nutrition" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LifeTimeY" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDelete" Type="Boolean" />
+          <NavigationProperty Name="ListAnimal" Relationship="ZooparkModel.FK_ListAnimal_Animal" FromRole="Animal" ToRole="ListAnimal" />
+        </EntityType>
+        <EntityType Name="ListAnimal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AnimalId" Type="Int32" />
+          <Property Name="ZooId" Type="Int32" />
+          <Property Name="Count" Type="Int32" />
+          <NavigationProperty Name="Animal" Relationship="ZooparkModel.FK_ListAnimal_Animal" FromRole="ListAnimal" ToRole="Animal" />
+          <NavigationProperty Name="ZooCompany" Relationship="ZooparkModel.FK_ListAnimal_ZooCompany" FromRole="ListAnimal" ToRole="ZooCompany" />
+        </EntityType>
+        <EntityType Name="ZooCompany">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="Int32" />
+          <Property Name="Direcror" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ListAnimal" Relationship="ZooparkModel.FK_ListAnimal_ZooCompany" FromRole="ZooCompany" ToRole="ListAnimal" />
+        </EntityType>
+        <Association Name="FK_ListAnimal_Animal">
+          <End Type="ZooparkModel.Animal" Role="Animal" Multiplicity="0..1" />
+          <End Type="ZooparkModel.ListAnimal" Role="ListAnimal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Animal">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ListAnimal">
+              <PropertyRef Name="AnimalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ListAnimal_ZooCompany">
+          <End Type="ZooparkModel.ZooCompany" Role="ZooCompany" Multiplicity="0..1" />
+          <End Type="ZooparkModel.ListAnimal" Role="ListAnimal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ZooCompany">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ListAnimal">
+              <PropertyRef Name="ZooId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ZooparkModelStoreContainer" CdmEntityContainer="ZooparkEntities">
+          <EntitySetMapping Name="Animal">
+            <EntityTypeMapping TypeName="ZooparkModel.Animal">
+              <MappingFragment StoreEntitySet="Animal">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LifeTimeY" ColumnName="LifeTimeY" />
+                <ScalarProperty Name="Nutrition" ColumnName="Nutrition" />
+                <ScalarProperty Name="Habitat" ColumnName="Habitat" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ListAnimal">
+            <EntityTypeMapping TypeName="ZooparkModel.ListAnimal">
+              <MappingFragment StoreEntitySet="ListAnimal">
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="ZooId" ColumnName="ZooId" />
+                <ScalarProperty Name="AnimalId" ColumnName="AnimalId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ZooCompany">
+            <EntityTypeMapping TypeName="ZooparkModel.ZooCompany">
+              <MappingFragment StoreEntitySet="ZooCompany">
+                <ScalarProperty Name="Direcror" ColumnName="Direcror" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

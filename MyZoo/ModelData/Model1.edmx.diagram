@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7c6adbf87018499cafe808cf3bc4809f" Name="Diagram1">
+        <EntityTypeShape EntityType="ZooparkModel.Animal" Width="1.5" PointX="0.75" PointY="5.375" />
+        <EntityTypeShape EntityType="ZooparkModel.ListAnimal" Width="1.5" PointX="3" PointY="0.875" />
+        <EntityTypeShape EntityType="ZooparkModel.ZooCompany" Width="1.5" PointX="0.75" PointY="1" />
+        <AssociationConnector Association="ZooparkModel.FK_ListAnimal_Animal" />
+        <AssociationConnector Association="ZooparkModel.FK_ListAnimal_ZooCompany" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
